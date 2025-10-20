@@ -1,10 +1,18 @@
 const cakes = [
-  { name: "Chocolate Cake", price: 500, img: "assets/chocolate.jpg" },
-  { name: "Vanilla Cupcake", price: 150, img: "assets/vanilla.jpg" },
-  { name: "Red Velvet Cake", price: 600, img: "assets/redvelvet.jpg" },
-  { name: "Strawberry Cake", price: 550, img: "assets/strawberry.jpg" },
-  { name: "Blueberry Cupcake", price: 180, img: "assets/blueberry.jpg" }
+  { name: "Apple Honey Cake", price: 25, img: "assets/appleHoney.jpg" },
+  { name: "Wallnut Cake", price: 27, img: "assets/troupleChocolateBrowine.jpg" }, // change later
+  { name: "Triple Chocolate Browine", price: 35, img: "assets/troupleChocolateBrowine.jpg" },
+  { name: "Oreo Cream Cake", price: 250, img: "assets/oreoCream.jpg" },
+  { name: "Red Welwet Cake", price: 16, img: "assets/redWelwet.jpg" },
+  { name: "Chocolate Moeusse", price: 150, img: "assets/chocolateMoeusse.jpg" },
+  { name: "Triple Layer Chocolate Cake", price: 150, img: "assets/tripleLayerChocolate.jpg" },
+  { name: "Oreo Chocolate", price: 80, img: "assets/Oreochocolate.jpg" },
+  { name: "Oreo Cheese Cake", price: 200, img: "assets/OreoCheese.jpeg" },
+  { name: "Vanilla Cake", price: 200, img: "assets/vanillaCake.jpg" },
+
 ];
+let cart = [];
+
 
 const cakeList = document.getElementById("cake-list");
 const quantities = cakes.map(() => 1);
@@ -28,12 +36,16 @@ cakes.forEach((cake, i) => {
   cakeList.appendChild(card);
 });
 
+// Quantity functions
 function increaseQuantity(i) {
   quantities[i]++;
   updateDisplay(i);
 }
 function decreaseQuantity(i) {
-  if (quantities[i] > 1) { quantities[i]--; updateDisplay(i); }
+  if (quantities[i] > 1) {
+    quantities[i]--;
+    updateDisplay(i);
+  }
 }
 function updateDisplay(i) {
   document.getElementById(`qty-${i}`).textContent = quantities[i];
@@ -44,105 +56,66 @@ function updateDisplay(i) {
   priceEl.classList.add("price-animate");
 }
 
-// Order Form Functions
-function resetOrderForm() {
-  const nameEl = document.getElementById("customer-name");
-  const mobileEl = document.getElementById("mobile-number");
-  const addressEl = document.getElementById("address");
-
-  nameEl.value = "";
-  mobileEl.value = "";
-  addressEl.value = "";
-
-  document.getElementById("error-name").classList.add("hidden");
-  document.getElementById("error-mobile").classList.add("hidden");
-  document.getElementById("error-address").classList.add("hidden");
-  quantities.forEach((_, i) => {
-    quantities[i] = 1;
-    document.getElementById(`qty-${i}`).textContent = 1;
-    document.getElementById(`price-${i}`).textContent = `₹${cakes[i].price}`;
-  });
-
-  selectedCake = null;
-
-}
-
-function openOrderForm(i) {
-  selectedCake = i;
-  resetOrderForm();
-  document.getElementById("order-form").classList.remove("hidden");
-}
-
-document.getElementById("cancel-order").addEventListener("click", () => {
-  resetOrderForm();
-  document.getElementById("order-form").classList.add("hidden");
-});
-
-// Inputs
+// Form inputs
 const nameEl = document.getElementById("customer-name");
 const mobileEl = document.getElementById("mobile-number");
 const addressEl = document.getElementById("address");
-
 const errName = document.getElementById("error-name");
 const errMobile = document.getElementById("error-mobile");
 const errAddress = document.getElementById("error-address");
 
-// ✅ Touched + Dynamic Validation
+// Touched + Dynamic validation
 [nameEl, mobileEl, addressEl].forEach((el) => {
-
-  // When field loses focus, show error if invalid
-  el.addEventListener("blur", () => {
-    validateField(el);
-  });
-
-  // While typing, remove error if now valid
-  el.addEventListener("input", () => {
-    validateField(el);
-  });
+  el.addEventListener("blur", () => validateField(el));
+  el.addEventListener("input", () => validateField(el));
 });
 
 // Validation function
 function validateField(el) {
   if(el === nameEl) {
-    if(nameEl.value.trim() === "") {
-      errName.classList.remove("hidden");
-      return false;
-    } else {
-      errName.classList.add("hidden");
-      return true;
-    }
+    if(nameEl.value.trim() === "") { errName.classList.remove("hidden"); return false; }
+    else { errName.classList.add("hidden"); return true; }
   }
   if(el === mobileEl) {
-    if(!/^[0-9]{10}$/.test(mobileEl.value.trim())) {
-      errMobile.classList.remove("hidden");
-      return false;
-    } else {
-      errMobile.classList.add("hidden");
-      return true;
-    }
+    if(!/^[0-9]{10}$/.test(mobileEl.value.trim())) { errMobile.classList.remove("hidden"); return false; }
+    else { errMobile.classList.add("hidden"); return true; }
   }
   if(el === addressEl) {
-    if(addressEl.value.trim() === "") {
-      errAddress.classList.remove("hidden");
-      return false;
-    } else {
-      errAddress.classList.add("hidden");
-      return true;
-    }
+    if(addressEl.value.trim() === "") { errAddress.classList.remove("hidden"); return false; }
+    else { errAddress.classList.add("hidden"); return true; }
   }
 }
 
+// Open order form
+function openOrderForm(i) {
+  selectedCake = i;
+  resetOrderFormInputs(); // only reset form inputs, not quantities
+  document.getElementById("order-form").classList.remove("hidden");
+}
+
+// Cancel button
+document.getElementById("cancel-order").addEventListener("click", () => {
+  resetOrderFormInputs();
+  document.getElementById("order-form").classList.add("hidden");
+});
+
+// Reset only form inputs (not quantities)
+function resetOrderFormInputs() {
+  nameEl.value = "";
+  mobileEl.value = "";
+  addressEl.value = "";
+  errName.classList.add("hidden");
+  errMobile.classList.add("hidden");
+  errAddress.classList.add("hidden");
+}
 
 // Submit order
 document.getElementById("submit-order").addEventListener("click", () => {
-  let isValid = true;
+  if(selectedCake === null) return;
 
-  if(nameEl.value.trim() === "") { errName.classList.remove("hidden"); isValid=false; }
-  if(!/^[0-9]{10}$/.test(mobileEl.value.trim())) { errMobile.classList.remove("hidden"); isValid=false; }
-  if(addressEl.value.trim() === "") { errAddress.classList.remove("hidden"); isValid=false; }
+  const isValid = validateField(nameEl) & validateField(mobileEl) & validateField(addressEl);
   if(!isValid) return;
 
-  // Fill hidden form
   const cake = cakes[selectedCake];
   document.getElementById("hidden-name").value = nameEl.value.trim();
   document.getElementById("hidden-mobile").value = mobileEl.value.trim();
@@ -153,8 +126,15 @@ document.getElementById("submit-order").addEventListener("click", () => {
 
   document.getElementById("orderForm").submit();
   showSuccessPopup();
-  resetOrderForm();
+
+  // Reset only selected cake quantity
+  quantities[selectedCake] = 1;
+  document.getElementById(`qty-${selectedCake}`).textContent = 1;
+  document.getElementById(`price-${selectedCake}`).textContent = `₹${cake.price}`;
+
+  resetOrderFormInputs();
   document.getElementById("order-form").classList.add("hidden");
+  selectedCake = null;
 });
 
 // Success popup
@@ -162,11 +142,9 @@ function showSuccessPopup() {
   const popup = document.getElementById("success-popup");
   console.log("Success popup function called");
 
-  // Show popup
   popup.classList.remove("hidden");
   popup.classList.add("fade-in");
 
-  // Fade out after 3s
   setTimeout(() => {
     popup.classList.remove("fade-in");
     popup.classList.add("fade-out");
@@ -174,8 +152,6 @@ function showSuccessPopup() {
     setTimeout(() => {
       popup.classList.add("hidden");
       popup.classList.remove("fade-out");
-    }, 500); // match fadeOut duration
+    }, 500);
   }, 3000);
 }
-
-
