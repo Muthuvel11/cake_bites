@@ -94,7 +94,21 @@ footer {
   padding: 10px;
   color: white;
   font-size: 14px;
+  text-align: center;
 }
+
+.instagram-link {
+  color: white;
+  text-decoration: none;
+  cursor: pointer; /* pointer only on the username */
+  font-weight: 500;
+}
+
+.instagram-link:hover {
+  text-decoration: underline; /* optional hover effect */
+}
+
+
 
 /* Price animation */
 @keyframes priceChange {
