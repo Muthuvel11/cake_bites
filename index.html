@@ -11,28 +11,50 @@
 
   <section class="cakes" id="cake-list"></section>
 
+  <!-- Order Form -->
   <div id="order-form" class="order-form hidden">
     <h2>Customer Details</h2>
-    <label>Name:</label><input type="text" id="customer-name">
-    <label>Mobile:</label><input type="tel" id="mobile-number" maxlength="10">
-    <label>Address:</label><textarea id="address"></textarea>
-    <button id="submit-order" class="btn">Submit</button>
-    <button id="cancel-order" class="btn cancel">Cancel</button>
+
+    <label for="customer-name"class="required">Name</label>
+    <input type="text" id="customer-name" placeholder="Enter your name">
+    <p id="error-name" class="text-red-500 text-sm mt-1 hidden">This field is required</p>
+
+    <label for="mobile-number"class="required">Mobile Number</label>
+    <input type="tel" id="mobile-number" placeholder="10-digit mobile" maxlength="10">
+    <p id="error-mobile" class="text-red-500 text-sm mt-1 hidden">Please enter a valid 10-digit number</p>
+
+    <label for="address"class="required">Address</label>
+    <textarea id="address" placeholder="Enter delivery address"></textarea>
+    <p id="error-address" class="text-red-500 text-sm mt-1 hidden">This field is required</p>
+
+    <div class="flex justify-between mt-4">
+      <button id="submit-order" class="btn">Submit Order</button>
+      <button id="cancel-order" class="btn cancel">Cancel</button>
+    </div>
   </div>
 
-  <!-- Hidden Form (bypass CORS) -->
-  <form id="orderForm"
-        action="https://script.google.com/macros/s/AKfycbxHErOFCEGFr9_xWyLeIThgjKL7dL4WsDcx35EauCDqo8P9pzp3A2bj3BOerRefraM-/exec"
-        method="POST" target="hidden_iframe">
-    <input type="hidden" name="name" id="hidden-name">
-    <input type="hidden" name="mobile" id="hidden-mobile">
-    <input type="hidden" name="address" id="hidden-address">
-    <input type="hidden" name="product" id="hidden-product">
-    <input type="hidden" name="quantity" id="hidden-quantity">
-    <input type="hidden" name="amount" id="hidden-amount">
+  <!-- Hidden Form for submission -->
+  <form id="orderForm" target="hidden_iframe" style="display:none;">
+    <input type="text" id="hidden-name" name="name">
+    <input type="text" id="hidden-mobile" name="mobile">
+    <input type="text" id="hidden-address" name="address">
+    <input type="text" id="hidden-product" name="product">
+    <input type="number" id="hidden-quantity" name="quantity">
+    <input type="number" id="hidden-amount" name="amount">
   </form>
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
 
+  <!-- Success Popup -->
+<div id="success-popup" class="hidden fixed inset-0 bg-black bg-opacity-40 items-center justify-center z-50">
+  <div class="bg-white rounded-2xl shadow-xl text-center p-6 w-80">
+    <div class="text-green-500 text-5xl mb-3">🎉</div>
+    <h3 class="text-lg font-semibold text-gray-800">Order Placed!</h3>
+    <p class="text-sm text-gray-600 mt-1">Thank you for your purchase. We’ll deliver your cake soon!</p>
+  </div>
+</div>
+
+
+
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
   <footer>Follow us ❤️ @cake_bites25</footer>
 
   <script src="script.js"></script>
