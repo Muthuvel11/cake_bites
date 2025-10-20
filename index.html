@@ -20,7 +20,7 @@
     <p id="error-name" class="text-red-500 text-sm mt-1 hidden">This field is required</p>
 
     <label for="mobile-number"class="required">Mobile Number</label>
-    <input type="tel" id="mobile-number" placeholder="10-digit mobile" maxlength="10">
+    <input type="tel" id="mobile-number" placeholder="Enter your mobile number" maxlength="10">
     <p id="error-mobile" class="text-red-500 text-sm mt-1 hidden">Please enter a valid 10-digit number</p>
 
     <label for="address"class="required">Address</label>
@@ -34,7 +34,7 @@
   </div>
 
   <!-- Hidden Form for submission -->
-  <form id="orderForm" target="hidden_iframe" style="display:none;">
+  <form id="orderForm"  action="https://script.google.com/macros/s/AKfycbxHErOFCEGFr9_xWyLeIThgjKL7dL4WsDcx35EauCDqo8P9pzp3A2bj3BOerRefraM-/exec"; method="POST" target="hidden_iframe" style="display:none;">
     <input type="text" id="hidden-name" name="name">
     <input type="text" id="hidden-mobile" name="mobile">
     <input type="text" id="hidden-address" name="address">
@@ -55,7 +55,14 @@
 
 
   <iframe name="hidden_iframe" style="display:none;"></iframe>
-  <footer>Follow us ❤️ @cake_bites25</footer>
+<footer>
+  Follow us ❤️ 
+  <a href="https://www.instagram.com/cake_bites25/" target="_blank" class="instagram-link">
+    @cake_bites25
+  </a>
+</footer>
+
+
 
   <script src="script.js"></script>
 </body>
