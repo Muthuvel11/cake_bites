@@ -108,6 +108,7 @@ footer {
 }
 
 /* Order Form */
+/* Order Form */
 .order-form {
   position: fixed;
   top: 50%;
@@ -116,23 +117,28 @@ footer {
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  padding: 5px 30px 20px 20px;
-  width: 100%;
-  max-width: 400px;
+  padding: 20px 25px;       /* Updated padding */
+  width: 90%;                /* Mobile-friendly width */
+  max-width: 400px;          /* Desktop max width */
   z-index: 1000;
   text-align: left;
   animation: fadeIn 0.3s ease;
+  box-sizing: border-box;    /* Ensure padding included in width */
 }
 
+/* Hidden by default */
 .hidden {
   display: none;
 }
 
+/* Heading */
 .order-form h2 {
   text-align: center;
   color: #E75480;
+  margin-bottom: 10px;
 }
 
+/* Labels */
 .order-form label {
   display: block;
   margin-top: 10px;
@@ -140,6 +146,7 @@ footer {
   color: #444;
 }
 
+/* Inputs and Textarea */
 .order-form input,
 .order-form textarea {
   width: 100%;
@@ -148,6 +155,7 @@ footer {
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .order-form textarea {
@@ -155,15 +163,42 @@ footer {
   height: 70px;
 }
 
+/* Buttons */
 .order-form .btn {
   width: 48%;
   margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  background: #E75480;
+  color: white;
+  transition: background 0.3s;
+}
+
+.order-form .btn:hover {
+  background: #c94367;
 }
 
 .order-form .btn.cancel {
   background: #ccc;
   color: #333;
 }
+
+/* Media queries for tablet/desktop */
+@media screen and (min-width: 600px) {
+  .order-form {
+    width: 80%;
+    padding: 25px 30px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .order-form {
+    width: 400px;
+  }
+}
+
 
 /* Error messages */
 .text-red-500 { color: #ef4444; }
