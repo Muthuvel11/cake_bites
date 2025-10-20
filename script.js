@@ -57,6 +57,14 @@ function resetOrderForm() {
   document.getElementById("error-name").classList.add("hidden");
   document.getElementById("error-mobile").classList.add("hidden");
   document.getElementById("error-address").classList.add("hidden");
+  quantities.forEach((_, i) => {
+    quantities[i] = 1;
+    document.getElementById(`qty-${i}`).textContent = 1;
+    document.getElementById(`price-${i}`).textContent = `₹${cakes[i].price}`;
+  });
+
+  selectedCake = null;
+
 }
 
 function openOrderForm(i) {
