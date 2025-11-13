@@ -10,6 +10,8 @@ const cakes = [
   { name: "Oreo Cheese Cake", price: 200, img: "assets/OreoCheese.jpeg" },
   { name: "Vanilla Cake", price: 12, img: "assets/vanillaCake.jpg" },
   { name: "Dream Cake 1/2 KG", price: 250, img: "assets/dreamCake.JPG" },
+  { name: "Chocolate Brownie", price: 26, img: "assets/chocolateBrownie.JPG" },
+  { name: "Cup Cake", price: 25, img: "assets/cupCake.JPG" },
 ];
 
 let cart = [];
@@ -186,4 +188,5 @@ function showSuccessPopup() {
     }, 500);
   }, 3000);
 }
+
 
